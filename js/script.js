@@ -1,6 +1,6 @@
 var pastCity =$("#city-list");
 var cities = [];
-var key = "fc8bffadcdca6a94d021c093eac22797";
+var key = "87fd1092035e1a1dd42ee58651435cca";
 
 //Format for day
 function FormatDay(date){
@@ -8,59 +8,49 @@ function FormatDay(date){
     console.log(date);
     var month = date.getMonth()+1;
     var day = date.getDate();
-    
-    var dayOutput = date.getFullYear() + '/' +
-        (month<10 ? '0' : '') + month + '/' +
-        (day<10 ? '0' : '') + day;
+    var dayOutput = (month<10 ? '0' : '') + month + '/' + (day<10 ? '0' : '') + day + '/' + date.getFullYear();
     return dayOutput;
 }
-
-
 
 //Calling function init();
 init();
 
 //Function init();
 function init(){
-    //Get stored cities from localStorage
-    //Parsing the JSON string to an object
+   //json steps
     var storedCities = JSON.parse(localStorage.getItem("cities"));
 
-    // If cities were retrieved from localStorage, update the cities array to it
+    // local storage array
     if (storedCities !== null) {
         cities = storedCities;
       }
-    // Render cities to the DOM
+  
     renderCities();
-    // console.log(cities);
 }
 
 //Function StoreCities()
 function storeCities(){
-   // Stringify and set "cities" key in localStorage to cities array
+   // stringify
   localStorage.setItem("cities", JSON.stringify(cities));
   console.log(localStorage);
 }
 
-//Function renderCities()
 function renderCities() {
-    // Clear cityList element
-    // cityList.text = "";
-    // cityList.HTML = "";
+
     pastCity.empty();
     
-    // Render a new li for each city
+   // creating new list per each new city
     for (var i = 0; i < cities.length; i++) {
       var city = cities[i];
       
       var li = $("<li>").text(city);
-      li.attr("id","listC");
+      li.attr("id","list");
       li.attr("data-city", city);
       li.attr("class", "list-group-item");
       console.log(li);
       pastCity.prepend(li);
     }
-    //Get Response weather for the first city only
+   
     if (!city){
         return
     } 
@@ -103,7 +93,7 @@ function renderCities() {
       cityTitle = $("<h3>").text(response.name + " "+ FormatDay());
       $("#today-weather").append(cityTitle);
       var TempetureToNum = parseInt((response.main.temp)* 9/5 - 459);
-      var cityTemperature = $("<p>").text("Tempeture: "+ TempetureToNum + " °F");
+      var cityTemperature = $("<p>").text("Temperature: "+ TempetureToNum + " °F");
       $("#today-weather").append(cityTemperature);
       var cityHumidity = $("<p>").text("Humidity: "+ response.main.humidity + " %");
       $("#today-weather").append(cityHumidity);
@@ -123,21 +113,6 @@ function renderCities() {
             cityUVp.append(cityUV);
             $("#today-weather").append(cityUVp);
             console.log(typeof responseuv.value);
-            if(responseuv.value > 0 && responseuv.value <=2){
-                cityUV.attr("class","green")
-            }
-            else if (responseuv.value > 2 && responseuv.value <= 5){
-                cityUV.attr("class","yellow")
-            }
-            else if (responseuv.value >5 && responseuv.value <= 7){
-                cityUV.attr("class","orange")
-            }
-            else if (responseuv.value >7 && responseuv.value <= 10){
-                cityUV.attr("class","red")
-            }
-            else{
-                cityUV.attr("class","purple")
-            }
         });
     
         //Api to get 5-day forecast  
@@ -159,11 +134,11 @@ function renderCities() {
                     console.log(date);
                     var month = date.getMonth()+1;
                     var day = date.getDate();
-                    var dayOutput = date.getFullYear() + '/' +
-                    (month<10 ? '0' : '') + month + '/' +
-                    (day<10 ? '0' : '') + day;
+                    var dayOutput = (month<10 ? '0' : '') + month + '/' + (day<10 ? '0' : '') + day + '/' + date.getFullYear();
                     var Fivedayh4 = $("<h6>").text(dayOutput);
-                    //Set src to the imags
+                  
+
+                    // image
                     var imgtag = $("<img>");
                     var skyconditions = responseFive.list[i].weather[0].main;
                     if(skyconditions==="Clouds"){
