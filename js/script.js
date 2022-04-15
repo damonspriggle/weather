@@ -145,12 +145,12 @@ function renderCities() {
             $.ajax({
             url: queryURL3,
             method: "GET"
-        }).then(function(response5day) { 
+        }).then(function(responseFive) { 
             $("#boxes").empty();
-            console.log(response5day);
-            for(var i=0, j=0; j<=4; i=i+7){
-                var read_date = response5day.list[i].dt;
-                if(response5day.list[i].dt != response5day.list[i+1].dt){
+            console.log(responseFive);
+            for(var i=0, j=0; j<=4; i=i+4){
+                var read_date = responseFive.list[i].dt;
+                if(responseFive.list[i].dt != responseFive.list[i+1].dt){
                     var FivedayDiv = $("<div>");
                     FivedayDiv.attr("class","col-3 m-2 bg-primary")
                     var d = new Date(0); 
@@ -165,7 +165,7 @@ function renderCities() {
                     var Fivedayh4 = $("<h6>").text(dayOutput);
                     //Set src to the imags
                     var imgtag = $("<img>");
-                    var skyconditions = response5day.list[i].weather[0].main;
+                    var skyconditions = responseFive.list[i].weather[0].main;
                     if(skyconditions==="Clouds"){
                         imgtag.attr("src", "https://img.icons8.com/color/48/000000/cloud.png")
                     } else if (skyconditions==="Clear"){
@@ -174,17 +174,17 @@ function renderCities() {
                         imgtag.attr("src", "https://img.icons8.com/color/48/000000/rain.png")
                     }
 
-                    var pTemperatureK = response5day.list[i].main.temp;
+                    var pTemperatureK = responseFive.list[i].main.temp;
                     console.log(skyconditions);
                     var TempetureToNum = parseInt((pTemperatureK)* 9/5 - 459);
                     var pTemperature = $("<p>").text("Tempeture: "+ TempetureToNum + " °F");
-                    var pHumidity = $("<p>").text("Humidity: "+ response5day.list[i].main.humidity + " %");
+                    var pHumidity = $("<p>").text("Humidity: "+ responseFive.list[i].main.humidity + " %");
                     FivedayDiv.append(Fivedayh4);
                     FivedayDiv.append(imgtag);
                     FivedayDiv.append(pTemperature);
                     FivedayDiv.append(pHumidity);
                     $("#boxes").append(FivedayDiv);
-                    console.log(response5day);
+                    console.log(responseFive);
                     j++;
                 }   
         }

@@ -2,18 +2,4 @@ ion-icon {
     color:#fcfcfc;
     --ionicon-stroke-width: 75px;
   }
-.purple{
-  background-color: purple;
-}
-.yellow{
-  background-color: #fcfcfc;
-}
-.green{
-  background-color: green;
-}
-.red{
-  background-color: red;
-}
-.orange{
-  background-color: orange;
-}
+
